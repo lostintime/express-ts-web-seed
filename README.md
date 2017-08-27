@@ -10,13 +10,13 @@ and [typescript](http://www.typescriptlang.org/).
 ### 1. Clone project
 
 ```
-git clone git@github.com:lostintime/express-ts-seed.git
+git clone --depth 1 git@github.com:lostintime/express-ts-seed.git
 ```
 
 Or using https:
 
 ```
-git clone https://github.com/lostintime/express-ts-seed.git
+git clone --depth 1 https://github.com/lostintime/express-ts-seed.git
 ```
 
 then enter project folder
