@@ -12,7 +12,8 @@
     "noImplicitUseStrict": false,
     "sourceMap": true,
     "allowJs": false,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react"
   },
   "include": [
     "src/**/*.ts"
