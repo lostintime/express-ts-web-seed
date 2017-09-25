@@ -1,20 +1,38 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
 const clientConfig = {
-  entry: './src/client/index.ts',
+  entry: {
+    "main.ts": "./src/client/index.ts"
+  },
   target: 'web',
   output: {
-    path: path.resolve(__dirname, "dist/public/assets"),
+    path: path.resolve(__dirname, "dist/public"),
     filename: 'main.js',
-    publicPath: '/assets/'
+    publicPath: '/'
+  },
+  resolve: {
+    extensions: ['tsx', '.ts', '.js']
   },
   module: {
     rules: [
+      {
+        test: /\.(tsx|ts|js)?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
+      },
       {
         test: /\.css$/,
         use: [
           'style-loader',
           'css-loader'
+        ]
+      },
+      {
+        test: /\.pug$/,
+        use: [
+          'pug-loader'
         ]
       },
       {
@@ -24,12 +42,24 @@ const clientConfig = {
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'src/client/public/index.pug',
+      inject: true,
+      hash: true
+    })
+  ]
 };
 
 const serverConfig = {
   entry: './src/server/index.ts',
   target: 'node',
+  externals: [nodeExternals()], // This will exclude node_modules from output
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"]
+  },
   module: {
     rules: [
       {
@@ -39,13 +69,13 @@ const serverConfig = {
       }
     ]
   },
-  resolve: {
-    extensions: [".tsx", ".ts", ".js"]
-  },
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist/server')
   }
 };
 
-module.exports = [clientConfig, serverConfig];
+module.exports = [
+  clientConfig,
+  serverConfig
+];

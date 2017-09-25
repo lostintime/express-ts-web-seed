@@ -9,11 +9,8 @@ export function buildRouter(env: RoutesEnv): express.Router {
 
   router.use('/users', users(env));
   router.use('/tasks', tasks(env));
-  router.use('/', (req, res, next) => {
-    res.send({
-      data: "This is demo route returning json, try also /users or /tasks",
-    });
-  });
+  // serve static files
+  router.use('/', express.static('dist/public'));
 
   return router;
 }
