@@ -1,4 +1,5 @@
-.my-bg {
-    background-color: #eeeeee;
-    background-image: require('../images/ts.png');
+@import "commons.scss";
+
+body {
+    background-image: url('../images/grid.png');
 }

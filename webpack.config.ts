@@ -1,11 +1,12 @@
-const path = require('path');
+import * as path from 'path';
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
 
 const clientConfig = {
-  entry: {
-    "main.ts": "./src/client/index.ts"
-  },
+  entry: "./src/client/index.ts",
   target: 'web',
   output: {
     path: path.resolve(__dirname, "dist/public"),
@@ -13,7 +14,7 @@ const clientConfig = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['tsx', '.ts', '.js']
+    extensions: ['tsx', '.ts', '.js', '.css']
   },
   module: {
     rules: [
@@ -24,19 +25,24 @@ const clientConfig = {
       },
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       },
       {
-        test: /\.pug$/,
-        use: [
-          'pug-loader'
-        ]
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        })
       },
       {
-        test: /\.(png|svg|jpg|gif|jpeg|html)$/,
+        test: /\.html$/,
+        use: ['html-loader']
+      },
+      {
+        test: /\.(png|svg|jpg|gif|jpeg)$/,
         use: [
           'file-loader'
         ]
@@ -44,10 +50,10 @@ const clientConfig = {
     ]
   },
   plugins: [
+    new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/client/public/index.pug',
-      inject: true,
+      template: 'src/client/public/index.html',
       hash: true
     })
   ]
@@ -75,7 +81,8 @@ const serverConfig = {
   }
 };
 
-module.exports = [
+
+export default [
   clientConfig,
   serverConfig
 ];
