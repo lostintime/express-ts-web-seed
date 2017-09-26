@@ -39,7 +39,14 @@ const clientConfig = {
       },
       {
         test: /\.html$/,
-        use: ['html-loader']
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              interpolate: 'require'
+            }
+          }
+        ]
       },
       {
         test: /\.(png|svg|jpg|gif|jpeg)$/,
