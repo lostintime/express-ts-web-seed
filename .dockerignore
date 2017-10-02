@@ -1,0 +1,8 @@
+src/
+node_modules/
+.gitignore
+build.sh
+CHANGELOG.md
+README.md
+tsconfig.json
+webpack.config.ts
