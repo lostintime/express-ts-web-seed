@@ -8,7 +8,7 @@ export NODE_ENV=production
 npm run-script clean
 npm run-script build
 
-docker build -t "lostintime/express-ts-web-seed:latest" $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+docker build --build-arg "NODE_ENV=production" -t "lostintime/express-ts-web-seed:latest" $( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 docker tag "lostintime/express-ts-web-seed:latest" "lostintime/express-ts-web-seed:rev-$REVISION"
 
