@@ -14,7 +14,7 @@ const clientConfig = {
     publicPath: '/'
   },
   resolve: {
-    extensions: ['tsx', '.ts', '.js', '.css']
+    extensions: ['.tsx', '.ts', '.js', '.css']
   },
   module: {
     rules: [
